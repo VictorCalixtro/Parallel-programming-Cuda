@@ -1,0 +1,27 @@
+#!/bin/bash
+#SBATCH -A CS4380_5351_7332 # account name
+#SBATCH -J p6_fractal4      # job name
+#SBATCH -o p6_fractal4.%j   # name of the output and error file
+#SBATCH -N 4                # total number of nodes requested
+#SBATCH -n 4                # total number of tasks requested
+#SBATCH -p gpu              # queue name
+#SBATCH -t 00:02:00         # expected maximum runtime (hh:mm:ss)
+
+date
+
+export OMP_NUM_THREADS=20
+
+ibrun tacc_affinity ./fractal_hyb 512 0 640
+ibrun tacc_affinity ./fractal_hyb 512 64 576
+ibrun tacc_affinity ./fractal_hyb 512 128 512
+ibrun tacc_affinity ./fractal_hyb 512 192 448
+ibrun tacc_affinity ./fractal_hyb 512 256 384
+ibrun tacc_affinity ./fractal_hyb 512 320 320
+ibrun tacc_affinity ./fractal_hyb 512 384 256
+ibrun tacc_affinity ./fractal_hyb 512 448 192
+ibrun tacc_affinity ./fractal_hyb 512 512 128
+ibrun tacc_affinity ./fractal_hyb 512 576 64
+ibrun tacc_affinity ./fractal_hyb 512 640 0
+
+date
+
